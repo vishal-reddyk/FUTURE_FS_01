@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+.env
+**/node_modules
+**/dist
+client/dist
+server/node_modules
+server/.env
+client/.env
+*.log
+.vscode
