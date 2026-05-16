@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export const navLinks = [
   { label: 'Home', href: '#home' },
@@ -12,7 +12,6 @@ export const navLinks = [
 export const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/vishal-reddyk', icon: FaGithub },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vishal-reddy-k/', icon: FaLinkedin },
-  { label: 'Instagram', href: 'https://instagram.com/vishal.reddy', icon: FaInstagram }
 ];
 
 export const heroData = {
