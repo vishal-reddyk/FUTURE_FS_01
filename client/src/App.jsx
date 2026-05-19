@@ -26,29 +26,8 @@ function App() {
     return localStorage.getItem('theme') || 'dark';
   });
   const [activeDemo, setActiveDemo] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [loginError, setLoginError] = useState('');
   const activeSection = useActiveSection(navLinks.map((item) => item.href));
   const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (!loginEmail.trim() || !loginPassword.trim()) {
-      setLoginError('Please enter both email and password.');
-      return;
-    }
-    setLoginError('');
-    setIsAuthenticated(true);
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setLoginEmail('');
-    setLoginPassword('');
-    setLoginError('');
-  };
 
   const demoComponents = {
     gharvalue: <GharValueDemo />,
@@ -115,57 +94,6 @@ Completed multiple courses covering modern web development practices and framewo
     document.body.removeChild(element);
   };
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-slate-950 px-4 py-10 text-slate-100 sm:px-6">
-        <div className="mx-auto max-w-2xl rounded-[2rem] border border-cyan-500/20 bg-slate-900/95 p-8 shadow-[0_30px_60px_rgba(0,0,0,0.45)] backdrop-blur-sm">
-          <div className="mb-8 space-y-4 text-center">
-            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Secure access</p>
-            <h1 className="text-4xl font-bold tracking-tight text-white">Admin Login</h1>
-            <p className="mx-auto max-w-xl text-slate-400">
-              Enter your email and password to access the portfolio dashboard. This login page is designed to feel clean, modern, and easy to use.
-            </p>
-          </div>
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-slate-200" htmlFor="login-email">Email</label>
-              <input
-                id="login-email"
-                type="email"
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-                placeholder="admin@demo.com"
-                className="w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-5 py-4 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-slate-200" htmlFor="login-password">Password</label>
-              <input
-                id="login-password"
-                type="password"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                placeholder="Enter password"
-                className="w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-5 py-4 text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20"
-              />
-            </div>
-            {loginError && <p className="text-sm text-rose-400">{loginError}</p>}
-            <button
-              type="submit"
-              className="w-full rounded-full bg-cyan-500 px-6 py-4 text-base font-semibold text-slate-950 transition hover:bg-cyan-400"
-            >
-              Login
-            </button>
-          </form>
-          <div className="mt-8 rounded-3xl border border-slate-800 bg-slate-950/80 p-5 text-slate-400">
-            <p className="text-sm font-semibold text-slate-200">Demo access</p>
-            <p className="mt-2 text-sm">Use any email and password to continue. The portfolio view will load immediately after login.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-100 text-slate-900'}`}>
       <ScrollProgress />
@@ -198,13 +126,6 @@ Completed multiple courses covering modern web development practices and framewo
               <a href={socialLinks[0].href} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full border border-slate-700 px-6 py-3 text-sm text-slate-100 hover:bg-slate-800 transition">
                 GitHub
               </a>
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 px-6 py-3 text-sm font-semibold text-slate-100 hover:border-cyan-400 hover:text-cyan-300 transition"
-              >
-                Logout
-              </button>
             </div>
             <div className="mt-10 flex flex-wrap gap-4">
               {socialLinks.map((social) => (
@@ -250,14 +171,6 @@ Completed multiple courses covering modern web development practices and framewo
           </motion.div>
         </div>
       </header>
-
-      <div className="mx-auto mb-12 max-w-5xl rounded-[2rem] border border-cyan-500/20 bg-cyan-500/10 p-8 shadow-glow text-slate-100">
-        <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">About this project</p>
-        <h2 className="mt-4 text-3xl font-bold text-slate-100">Modern portfolio built to showcase your skills</h2>
-        <p className="mt-4 text-slate-300 leading-8">
-          This is a personal portfolio website for Vishal Reddy, built with React and Tailwind CSS. It presents professional skills, recent projects, education, resume download, contact details, and interactive demos with bold typography and clean spacing.
-        </p>
-      </div>
 
       <main className="space-y-28">
         <section id="about" className="section-container">
